@@ -32,7 +32,6 @@
             width: 100%;
         }
 
-        /* Heads Up Display (HUD) */
         #hud {
             display: none;
             justify-content: space-between;
@@ -57,7 +56,6 @@
             color: var(--accent-blue);
         }
 
-        /* Pantallas (Tutorial, Retos, Victoria) */
         .screen {
             display: none;
             background-color: var(--card-bg);
@@ -110,10 +108,11 @@
         }
 
         .help-text {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #a0aec0;
-            margin-top: 5px;
+            margin-top: 8px;
             display: block;
+            line-height: 1.4;
         }
 
         button {
@@ -160,6 +159,17 @@
             line-height: 1.6;
         }
 
+        .tutorial-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .tutorial-content li {
+            margin-bottom: 12px;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
         .victory-screen {
             text-align: center;
         }
@@ -177,21 +187,21 @@
     <!-- BARRA DE ESTADO (HUD) -->
     <div id="hud">
         <div class="stat">Puntos: <span id="hud-score">0</span></div>
-        <div class="stat stat-lives">Vidas: <span id="hud-lives">❤️❤️❤️</span></div>
-        <div class="stat stat-time">Tiempo: <span id="hud-time">60</span>s ⏱️</div>
+        <div class="stat stat-lives">Vidas: <span id="hud-lives">3</span></div>
+        <div class="stat stat-time">Tiempo: <span id="hud-time">60</span>s</div>
     </div>
 
     <!-- PANTALLA: TUTORIAL -->
     <div id="tutorial" class="screen" style="display: block;">
-        <h2>🚀 MISIÓN: SALVAR LA TIERRA</h2>
+        <h2>MISIÓN: SALVAR LA TIERRA</h2>
         <div class="tutorial-content">
-            <p><strong>¡Bienvenido a bordo, Cadete Espacial!</strong></p>
+            <p><strong>Bienvenido a bordo, Cadete Espacial</strong></p>
             <p>Para completar esta misión y salvar la Tierra, deberás atravesar 4 retos utilizando tu dominio de la <strong>Notación Científica</strong>.</p>
             <ul>
-                <li>⏱️ <strong>Tiempo:</strong> Cada reto tiene un límite de tiempo. Si llega a 0, pierdes una vida.</li>
-                <li>❤️ <strong>Vidas:</strong> Tienes 3 vidas por nivel. ¡Cuidado! Si pierdes las 3 vidas, serás penalizado y devuelto al reto anterior.</li>
-                <li>⭐ <strong>Puntos:</strong> Obtendrás más puntos en los retos de mayor dificultad.</li>
-                <li>⌨️ <strong>Escritura:</strong> Usa la letra <code>x</code> para multiplicar y el símbolo <code>^</code> para el exponente (Ejemplo: <code>3.5x10^4</code>).</li>
+                <li><strong>Tiempo:</strong> Cada reto tiene un límite de tiempo. Si llega a 0, pierdes una vida.</li>
+                <li><strong>Vidas:</strong> Tienes 3 vidas por nivel. Si pierdes las 3 vidas, serás penalizado y devuelto al reto anterior.</li>
+                <li><strong>Puntos:</strong> Obtendrás más puntos en los retos de mayor dificultad.</li>
+                <li><strong>Escritura del exponente:</strong> Usa la letra "x" para multiplicar. Para el exponente elevado puedes usar el símbolo "^" presionando las teclas (Alt + 94) en tu teclado. Si se te dificulta, puedes escribir los números seguidos sin el símbolo. El sistema aceptará ambas formas. Ejemplo: 3.5x10^4 o 3.5x104.</li>
             </ul>
             <button onclick="startGame()">INICIAR MISIÓN</button>
         </div>
@@ -204,13 +214,13 @@
         
         <div class="question">
             <label><strong>1. Distancia de la Tierra al Sol:</strong> 149.600.000 km</label>
-            <input type="text" id="r1_1" placeholder="Ejemplo: 1.496x10^8">
-            <span class="help-text">Recuerda: El coeficiente debe estar entre 1 y 9.99...</span>
+            <input type="text" id="r1_1" placeholder="Ejemplo: 1.496x10^8 o 1.496x108">
+            <span class="help-text">Recuerda: El coeficiente debe estar entre 1 y 9.99... Puedes usar (Alt + 94) para el símbolo ^ o escribirlo de corrido.</span>
         </div>
 
         <div class="question">
             <label><strong>2. Tamaño de una partícula de polvo:</strong> 0,000002 m</label>
-            <input type="text" id="r1_2" placeholder="Ejemplo: 2x10^-6">
+            <input type="text" id="r1_2" placeholder="Ejemplo: 2x10^-6 o 2x10-6">
         </div>
 
         <button onclick="validarReto1()">Validar Reto 1</button>
@@ -223,7 +233,7 @@
         <p>Determina la relación de orden y fundamenta tu respuesta.</p>
 
         <div class="question">
-            <label><strong>Compara:</strong> 3.2 × 10⁵ km  [ ? ]  1.8 × 10⁶ km</label>
+            <label><strong>Compara:</strong> 3.2 x 10^5 km  [ ? ]  1.8 x 10^6 km</label>
             <select id="r2_1">
                 <option value="">-- Selecciona el símbolo --</option>
                 <option value="<">Menor que (<)</option>
@@ -235,22 +245,22 @@
         <div class="question">
             <label><strong>Justificación Matemática:</strong></label>
             <textarea id="r2_just" rows="3" placeholder="Explica por qué... (Pista: habla de los exponentes)."></textarea>
-            <span class="help-text">Debes escribir al menos 15 caracteres para que la IA de la nave lo apruebe.</span>
+            <span class="help-text">Debes escribir al menos 15 caracteres para que el sistema apruebe tu justificación.</span>
         </div>
 
         <button onclick="validarReto2()">Validar Reto 2</button>
         <div id="fb2" class="feedback"></div>
     </div>
 
-    <!-- RETO 3: DETECTOR DE ERRORES (MÁS DIFÍCIL) -->
+    <!-- RETO 3: DETECTOR DE ERRORES -->
     <div id="reto3" class="screen">
         <h2>Reto 3: Detector de Errores <span class="points-badge">300 pts</span></h2>
         <p>La computadora de la nave falló. Encuentra el error y corrígelo.</p>
 
         <div class="question">
-            <p><strong>Reporte con error:</strong> "0,0000045 = 45 × 10⁻⁶"</p>
+            <p><strong>Reporte con error:</strong> "0,0000045 = 45 x 10^-6"</p>
             <label><strong>1. Escribe la respuesta corregida:</strong></label>
-            <input type="text" id="r3_1" placeholder="Ejemplo: 4.5x10^-6">
+            <input type="text" id="r3_1" placeholder="Ejemplo: 4.5x10^-6 o 4.5x10-6">
         </div>
 
         <div class="question">
@@ -268,8 +278,8 @@
         <p>Realiza la operación matemática para ajustar la trayectoria final.</p>
 
         <div class="question">
-            <label><strong>Calcula el producto:</strong> (3 × 10⁵) × (2 × 10³)</label>
-            <input type="text" id="r4_1" placeholder="Ejemplo: 6x10^8">
+            <label><strong>Calcula el producto:</strong> (3 x 10^5) x (2 x 10^3)</label>
+            <input type="text" id="r4_1" placeholder="Ejemplo: 6x10^8 o 6x108">
             <span class="help-text">Opera los coeficientes y suma los exponentes.</span>
         </div>
 
@@ -279,8 +289,8 @@
 
     <!-- PANTALLA: VICTORIA -->
     <div id="victory" class="screen victory-screen">
-        <h1>🌍 ¡MISIÓN CUMPLIDA!</h1>
-        <p>¡Felicidades Cadete! Has salvado la Tierra aplicando exitosamente la Notación Científica.</p>
+        <h1>¡MISIÓN CUMPLIDA!</h1>
+        <p>Felicidades Cadete. Has salvado la Tierra aplicando exitosamente la Notación Científica.</p>
         <h2 style="border:none; font-size: 2rem;">Puntuación Final: <span id="final-score-text" style="color:var(--accent-gold)">0</span> pts</h2>
         <p>Has demostrado que dominas los Resultados de Aprendizaje (RAA1 y RAA3).</p>
         <button onclick="location.reload()" style="max-width: 300px;">Jugar de nuevo</button>
@@ -300,7 +310,7 @@
     const levelData = {
         1: { time: 60, points: 100 },
         2: { time: 60, points: 150 },
-        3: { time: 120, points: 300 }, // Más tiempo y más puntos (El más complejo)
+        3: { time: 120, points: 300 },
         4: { time: 90, points: 200 }
     };
 
@@ -314,15 +324,12 @@
     // CARGAR NIVEL
     function loadLevel(level) {
         currentLevel = level;
-        lives = 3; // Restaurar vidas al iniciar el nivel
+        lives = 3;
         time = levelData[level].time;
         
-        // Ocultar todas las pantallas
         document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
-        // Mostrar la pantalla actual
         document.getElementById(`reto${level}`).style.display = 'block';
         
-        // Limpiar feedbacks anteriores y campos
         document.getElementById(`fb${level}`).style.display = 'none';
         
         updateHUD();
@@ -332,7 +339,7 @@
     // ACTUALIZAR INTERFAZ (HUD)
     function updateHUD() {
         document.getElementById('hud-time').innerText = time;
-        document.getElementById('hud-lives').innerText = '❤️'.repeat(lives);
+        document.getElementById('hud-lives').innerText = lives;
         document.getElementById('hud-score').innerText = score;
     }
 
@@ -344,14 +351,14 @@
             updateHUD();
             if (time <= 0) {
                 clearInterval(timerId);
-                processMistake("¡Se acabó el tiempo!");
+                processMistake("Se agotó el tiempo.");
             }
         }, 1000);
     }
 
-    // LIMPIAR ENTRADAS (ignorar mayúsculas, comas por puntos y espacios)
+    // LIMPIAR ENTRADAS: Pone en minúscula, quita espacios, cambia coma por punto y ELIMINA el símbolo ^ para validar fácilmente
     function cleanInput(str) {
-        return str.toLowerCase().replace(/\s+/g, '').replace(',', '.');
+        return str.toLowerCase().replace(/\s+/g, '').replace(',', '.').replace('^', '');
     }
 
     // PROCESAR RESPUESTA INCORRECTA O TIEMPO AGOTADO
@@ -362,19 +369,17 @@
         
         if (lives > 0) {
             fb.className = 'feedback incorrect';
-            fb.innerHTML = `❌ ${mensajeError}<br>Te quedan ${lives} vidas.`;
+            fb.innerHTML = `Incorrecto. ${mensajeError}<br>Te quedan ${lives} vidas.`;
             fb.style.display = 'block';
             
-            // Si el tiempo se acabó, resetear temporizador
             if(time <= 0) {
                 time = levelData[currentLevel].time;
                 startTimer();
             }
         } else {
             clearInterval(timerId);
-            alert(`💥 ¡TE QUEDASTE SIN VIDAS! \nPenalización: Regresas al nivel anterior.`);
+            alert(`TE QUEDASTE SIN VIDAS. \nPenalización: Regresas al nivel anterior.`);
             
-            // Retroceder un nivel (mínimo 1)
             let prevLevel = Math.max(1, currentLevel - 1);
             loadLevel(prevLevel);
         }
@@ -389,10 +394,9 @@
         updateHUD();
 
         fb.className = 'feedback correct';
-        fb.innerHTML = `✅ ¡Correcto! Has ganado ${gainedPoints} puntos. Preparando salto espacial...`;
+        fb.innerHTML = `Correcto. Has ganado ${gainedPoints} puntos. Preparando salto espacial...`;
         fb.style.display = 'block';
 
-        // Pasar al siguiente nivel después de 2.5 segundos
         setTimeout(() => {
             if (currentLevel < 4) {
                 loadLevel(currentLevel + 1);
@@ -408,8 +412,9 @@
         const r1 = cleanInput(document.getElementById('r1_1').value);
         const r2 = cleanInput(document.getElementById('r1_2').value);
         
-        const isOk1 = r1 === '1.496x10^8' || r1 === '1.496*10^8';
-        const isOk2 = r2 === '2x10^-6' || r2 === '2*10^-6';
+        // Al quitar el símbolo ^ en la función cleanInput, solo necesitamos validar el texto de corrido
+        const isOk1 = r1 === '1.496x108' || r1 === '1.496*108';
+        const isOk2 = r2 === '2x10-6' || r2 === '2*10-6';
 
         if (isOk1 && isOk2) {
             processSuccess();
@@ -433,7 +438,7 @@
         const val = cleanInput(document.getElementById('r3_1').value);
         const just = document.getElementById('r3_just').value.trim();
         
-        const isOk = val === '4.5x10^-6' || val === '4.5*10^-6';
+        const isOk = val === '4.5x10-6' || val === '4.5*10-6';
 
         if (isOk && just.length >= 15) {
             processSuccess();
@@ -444,12 +449,12 @@
 
     function validarReto4() {
         const val = cleanInput(document.getElementById('r4_1').value);
-        const isOk = val === '6x10^8' || val === '6*10^8';
+        const isOk = val === '6x108' || val === '6*108';
 
         if (isOk) {
             processSuccess();
         } else {
-            processMistake("Revisa tu multiplicación. Opera los coeficientes (3×2) y suma los exponentes (5+3).");
+            processMistake("Revisa tu multiplicación. Opera los coeficientes (3 por 2) y suma los exponentes (5+3).");
         }
     }
 
